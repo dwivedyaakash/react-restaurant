@@ -1,0 +1,67 @@
+#root {
+  /* max-width: 1280px; */
+  /* margin: 0 auto; */
+  /* padding: 2rem; */
+  /* text-align: center; */
+}
+
+.header {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 5em;
+  padding: 1.5em;
+}
+
+.nav-items {
+}
+
+.nav-item {
+  padding: 0rem 1rem;
+}
+
+.search-btn,
+.clear-search-btn,
+.top-restaurants-btn {
+  background-color: aliceblue;
+  margin-left: 1rem;
+}
+
+.no-restaurants-error {
+  color: red;
+  text-align: center;
+}
+
+.search-input-field {
+  height: 2rem;
+  margin-left: 1rem;
+}
+
+.restaurants-title {
+  margin-left: 1rem;
+}
+
+.restaurant-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.restaurant-card {
+  background-color: dimgray;
+  height: fit-content;
+  margin: 1rem;
+  padding: 0.5rem;
+}
+
+.restaurant-img {
+  height: 15rem;
+  width: 15rem;
+}
+
+.restaurant-name {
+  max-width: 15rem;
+}
