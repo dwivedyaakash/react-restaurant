@@ -2,16 +2,12 @@ import PropTypes from "prop-types";
 import { IMG_URL } from "../utils/constants";
 
 const RestaurantCard = (props) => {
-  const name = props?.restaurant?.info?.name;
-  const imgId = props.restaurant.info.cloudinaryImageId;
-  const areaName = props.restaurant.info.areaName;
-  const costForTwo = props.restaurant.info.costForTwo;
-  const cuisines = props.restaurant.info.cuisines;
-  const avgRating = props.restaurant.info.avgRating;
+  const { name, cloudinaryImageId, areaName, costForTwo, cuisines, avgRating } =
+    props.restaurant.info;
 
   return (
     <div className="restaurant-card">
-      <img className="restaurant-img" src={IMG_URL + imgId} />
+      <img className="restaurant-img" src={IMG_URL + cloudinaryImageId} />
       <p className="restaurant-name">{name}</p>
       <p className="restaurant-name">{areaName}</p>
       <p className="restaurant-name">{costForTwo}</p>

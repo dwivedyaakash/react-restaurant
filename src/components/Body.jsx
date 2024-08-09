@@ -1,5 +1,6 @@
 import { API_URL } from "../utils/constants";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import RestaurantCard from "./RestaurantCard";
 
@@ -31,6 +32,8 @@ const Body = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  // console.log("body rendered");
 
   return data.length === 0 ? (
     <Shimmer />
@@ -90,7 +93,12 @@ const Body = () => {
       {showNoRestaurantsError ? <Error /> : ""}
       <div className="restaurant-container">
         {filteredData?.map((restaurant) => (
-          <RestaurantCard key={restaurant?.info?.id} restaurant={restaurant} />
+          <Link
+            key={restaurant?.info?.id}
+            to={"/restaurants/" + restaurant?.info?.id}
+          >
+            <RestaurantCard restaurant={restaurant} />
+          </Link>
         ))}
       </div>
     </div>
