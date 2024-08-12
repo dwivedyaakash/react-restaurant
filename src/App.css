@@ -1,9 +1,9 @@
-#root {
-  /* max-width: 1280px; */
-  /* margin: 0 auto; */
-  /* padding: 2rem; */
-  /* text-align: center; */
-}
+/* #root { */
+/* max-width: 1280px; */
+/* margin: 0 auto; */
+/* padding: 2rem; */
+/* text-align: center; */
+/* } */
 
 .header {
   width: 100vw;
@@ -17,8 +17,7 @@
   padding: 1.5em;
 }
 
-.nav-items {
-}
+/* .nav-items {} */
 
 .nav-items ul {
   display: flex;
@@ -32,6 +31,16 @@
 .nav-item:hover {
   cursor: pointer;
   color: #a3a3a3;
+}
+
+.shimmer {
+  color: #a3a3a3;
+  font-size: 2rem;
+  text-align: center;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .search-btn,

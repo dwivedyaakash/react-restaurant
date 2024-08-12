@@ -1,36 +1,12 @@
-import { MENU_URL } from "../utils/constants";
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-  const [apiData, setApiData] = useState([]);
-  const [topPicks, setTopPicks] = useState(false);
-  // true -> carousel, false -> itemCards
+  const { apiData, topPicks } = useRestaurantMenu(resId);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const apiData = await fetch(MENU_URL + resId);
-    const jsonData = await apiData.json();
-    setApiData(jsonData);
-    if (
-      jsonData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]
-        ?.card?.card?.carousel != undefined
-    ) {
-      setTopPicks(true);
-    } else if (
-      jsonData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]
-        ?.card?.card?.itemCards != undefined
-    ) {
-      setTopPicks(false);
-    }
-  };
-
-  if (apiData?.length === 0 && topPicks?.length === 0) return <Shimmer />;
+  if (apiData?.length === 0) return <Shimmer />;
 
   return topPicks ? (
     <>

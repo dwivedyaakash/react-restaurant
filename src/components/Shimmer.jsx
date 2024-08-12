@@ -1,5 +1,5 @@
 function Shimmer() {
-  return <div>Loading.....</div>;
+  return <div className="shimmer">Loading.....</div>;
 }
 
 export default Shimmer;
