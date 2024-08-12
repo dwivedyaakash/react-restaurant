@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import RestaurantCard from "./RestaurantCard";
+import useInternetStatus from "../utils/useInternetStatus";
 
 const Error = () => {
   return (
@@ -15,6 +16,14 @@ const Body = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [showNoRestaurantsError, setShowNoRestaurantsError] = useState(false);
+  const onlineStatus = useInternetStatus();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (onlineStatus === false)
+    return <div className="offline-msg">You are offline!</div>;
 
   const fetchData = async () => {
     const apiData = await fetch(API_URL);
@@ -28,10 +37,6 @@ const Body = () => {
         ?.restaurants
     );
   };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   // console.log("body rendered");
 

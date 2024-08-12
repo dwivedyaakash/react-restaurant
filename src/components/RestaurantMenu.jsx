@@ -1,10 +1,15 @@
 import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import useInternetStatus from "../utils/useInternetStatus";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const { apiData, topPicks } = useRestaurantMenu(resId);
+  const onlineStatus = useInternetStatus();
+
+  if (onlineStatus === false)
+    return <div className="offline-msg">You are offline!</div>;
 
   if (apiData?.length === 0) return <Shimmer />;
 
