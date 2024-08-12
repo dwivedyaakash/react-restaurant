@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-
   const [apiData, setApiData] = useState([]);
-  const [topPicks, setTopPicks] = useState([]);
+  const [topPicks, setTopPicks] = useState(false);
+  // true -> carousel, false -> itemCards
 
   useEffect(() => {
     fetchData();
@@ -16,30 +16,58 @@ const RestaurantMenu = () => {
     const apiData = await fetch(MENU_URL + resId);
     const jsonData = await apiData.json();
     setApiData(jsonData);
-    setTopPicks(
-      jsonData.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards[1].card.card
-        .carousel
-    );
-
-    // console.log(jsonData.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards);
-    // console.log(
-    //   jsonData.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards[1].card.card
-    //     .carousel[0]
-    // );
+    // console.log(apiData);
+    if (
+      jsonData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]
+        ?.card?.card?.carousel != undefined
+    ) {
+      setTopPicks(true);
+      // console.log("carousel");
+    } else if (
+      jsonData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]
+        ?.card?.card?.itemCards != undefined
+    ) {
+      setTopPicks(false);
+      // console.log("itemCards");
+    }
   };
 
-  return apiData.length === 0 ? (
-    ""
+  if (apiData?.length === 0 && topPicks?.length === 0)
+    return <div>Loading...</div>;
+
+  return topPicks ? (
+    <>
+      <div>
+        <h1>restro name here</h1>
+        <h3>
+          {
+            apiData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR
+              ?.cards[1]?.card?.card?.title
+          }
+        </h3>
+        {apiData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.carousel.map(
+          (item) => (
+            <li key={item?.dish?.info?.id}>{item?.title}</li>
+          )
+        )}
+      </div>
+    </>
   ) : (
     <>
-      <h3>{apiData.data.cards[2].card.card.info.name}</h3>
-      <h3>{apiData.data.cards[2].card.card.info.id}</h3>
-      <div>Top picks</div>
-      {topPicks.map((item) => (
-        <li key={item.dish.info.id}>
-          {item.title} - Rs: {item.dish.info.price / 100}
-        </li>
-      ))}
+      <div>
+        <h1>restro name here</h1>
+        <h3>
+          {
+            apiData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR
+              ?.cards[1]?.card?.card?.title
+          }
+        </h3>
+        {apiData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards.map(
+          (item) => (
+            <li key={item?.card?.info?.id}>{item?.card?.info?.name}</li>
+          )
+        )}
+      </div>
     </>
   );
 };
