@@ -6,7 +6,7 @@ function About() {
   if (onlineStatus === false)
     return <div className="offline-msg">You are offline!</div>;
 
-  return <div className="about-container">About</div>;
+  return <div className="about-container">About Me</div>;
 }
 
 export default About;
