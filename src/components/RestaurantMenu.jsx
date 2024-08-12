@@ -1,6 +1,7 @@
 import { MENU_URL } from "../utils/constants";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Shimmer from "./Shimmer";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
@@ -16,36 +17,34 @@ const RestaurantMenu = () => {
     const apiData = await fetch(MENU_URL + resId);
     const jsonData = await apiData.json();
     setApiData(jsonData);
-    // console.log(apiData);
     if (
       jsonData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]
         ?.card?.card?.carousel != undefined
     ) {
       setTopPicks(true);
-      // console.log("carousel");
     } else if (
       jsonData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]
         ?.card?.card?.itemCards != undefined
     ) {
       setTopPicks(false);
-      // console.log("itemCards");
     }
   };
 
-  if (apiData?.length === 0 && topPicks?.length === 0)
-    return <div>Loading...</div>;
+  if (apiData?.length === 0 && topPicks?.length === 0) return <Shimmer />;
 
   return topPicks ? (
     <>
-      <div>
-        <h1>restro name here</h1>
+      <div className="menu-container">
+        <h2>{apiData?.data?.cards[0]?.card?.card?.text}</h2>
         <h3>
           {
-            apiData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR
-              ?.cards[1]?.card?.card?.title
+            apiData?.data?.cards[apiData.data.cards.length - 1]?.groupedCard
+              ?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.title
           }
         </h3>
-        {apiData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.carousel.map(
+        {apiData?.data?.cards[
+          apiData.data.cards.length - 1
+        ]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.carousel.map(
           (item) => (
             <li key={item?.dish?.info?.id}>{item?.title}</li>
           )
@@ -54,15 +53,17 @@ const RestaurantMenu = () => {
     </>
   ) : (
     <>
-      <div>
-        <h1>restro name here</h1>
+      <div className="menu-container">
+        <h2>{apiData?.data?.cards[0]?.card?.card?.text}</h2>
         <h3>
           {
-            apiData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR
-              ?.cards[1]?.card?.card?.title
+            apiData?.data?.cards[apiData.data.cards.length - 1]?.groupedCard
+              ?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.title
           }
         </h3>
-        {apiData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards.map(
+        {apiData?.data?.cards[
+          apiData.data.cards.length - 1
+        ]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards.map(
           (item) => (
             <li key={item?.card?.info?.id}>{item?.card?.info?.name}</li>
           )

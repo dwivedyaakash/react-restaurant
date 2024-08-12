@@ -6,7 +6,7 @@ import RestaurantCard from "./RestaurantCard";
 
 const Error = () => {
   return (
-    <div className='no-restaurants-error'>Error no restaurants found!</div>
+    <div className="no-restaurants-error">Error no restaurants found!</div>
   );
 };
 
@@ -40,15 +40,15 @@ const Body = () => {
   ) : (
     <div>
       <input
-        className='search-input-field'
-        placeholder='search'
+        className="search-input-field"
+        placeholder="search"
         value={searchText}
         onChange={(e) => {
           setSearchText(e.target.value);
         }}
       />
       <button
-        className='clear-search-btn'
+        className="clear-search-btn"
         onClick={() => {
           setSearchText("");
           setShowNoRestaurantsError(false);
@@ -58,7 +58,7 @@ const Body = () => {
         x
       </button>
       <button
-        className='search-btn'
+        className="search-btn"
         onClick={() => {
           if (searchText == "") return;
           const filteredList = data.filter((restaurant) =>
@@ -77,7 +77,7 @@ const Body = () => {
         Search
       </button>
       <button
-        className='top-restaurants-btn'
+        className="top-restaurants-btn"
         onClick={() => {
           const filteredList = data.filter(
             (restaurant) => restaurant.info.avgRating > 4.5
@@ -89,15 +89,14 @@ const Body = () => {
       >
         Top Rated Restaurants
       </button>
-      <h3 className='restaurants-title'>Top restaurant chains in Bangalore</h3>
+      <h3 className="restaurants-title">Top restaurant chains in Bangalore</h3>
       {showNoRestaurantsError ? <Error /> : ""}
-      <div className='restaurant-container'>
+      <div className="restaurant-container">
         {filteredData?.map((restaurant) => (
           <Link
             key={restaurant?.info?.id}
             to={"/restaurants/" + restaurant?.info?.id}
           >
-            {/* {console.log(restaurant.info.id)} */}
             <RestaurantCard restaurant={restaurant} />
           </Link>
         ))}
