@@ -23,7 +23,11 @@ const Body = () => {
   }, []);
 
   if (onlineStatus === false)
-    return <div className="offline-msg">You are offline!</div>;
+    return (
+      <div className="offline-msg flex items-center justify-center text-gray-300 text-3xl h-[80vh]">
+        You are offline!
+      </div>
+    );
 
   const fetchData = async () => {
     const apiData = await fetch(API_URL);
@@ -40,63 +44,69 @@ const Body = () => {
 
   // console.log("body rendered");
 
-  return data.length === 0 ? (
+  return data?.length === 0 ? (
     <Shimmer />
   ) : (
     <div>
-      <input
-        className="search-input-field"
-        placeholder="search"
-        value={searchText}
-        onChange={(e) => {
-          setSearchText(e.target.value);
-        }}
-      />
-      <button
-        className="clear-search-btn"
-        onClick={() => {
-          setSearchText("");
-          setShowNoRestaurantsError(false);
-          setFilteredData(data);
-        }}
-      >
-        x
-      </button>
-      <button
-        className="search-btn"
-        onClick={() => {
-          if (searchText == "") return;
-          const filteredList = data.filter((restaurant) =>
-            restaurant.info.name
-              .toLowerCase()
-              .includes(searchText.toLowerCase())
-          );
-          setFilteredData(filteredList);
-          if (filteredList.length === 0) {
-            setShowNoRestaurantsError(true);
-          } else {
+      <div className="mx-2 mb-4 flex justify-between">
+        <button
+          className="top-restaurants-btn rounded bg-slate-100 text-black mx-2 px-4 py-2"
+          onClick={() => {
+            const filteredList = data.filter(
+              (restaurant) => restaurant.info.avgRating > 4.5
+            );
+            setSearchText("");
+            setFilteredData(filteredList);
             setShowNoRestaurantsError(false);
-          }
-        }}
-      >
-        Search
-      </button>
-      <button
-        className="top-restaurants-btn"
-        onClick={() => {
-          const filteredList = data.filter(
-            (restaurant) => restaurant.info.avgRating > 4.5
-          );
-          setSearchText("");
-          setFilteredData(filteredList);
-          setShowNoRestaurantsError(false);
-        }}
-      >
-        Top Rated Restaurants
-      </button>
-      <h3 className="restaurants-title">Top restaurant chains in Bangalore</h3>
+          }}
+        >
+          Top Rated Restaurants
+        </button>
+        <div>
+          <input
+            className="search-input-field rounded bg-slate-100 text-black mx-2 px-4 py-2"
+            placeholder="search"
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          />
+          <button
+            className="clear-search-btn rounded bg-slate-100 text-black mx-2 px-4 py-2"
+            onClick={() => {
+              setSearchText("");
+              setShowNoRestaurantsError(false);
+              setFilteredData(data);
+            }}
+          >
+            x
+          </button>
+          <button
+            className="search-btn rounded bg-slate-100 text-black mx-2 px-4 py-2"
+            onClick={() => {
+              if (searchText == "") return;
+              const filteredList = data.filter((restaurant) =>
+                restaurant.info.name
+                  .toLowerCase()
+                  .includes(searchText.toLowerCase())
+              );
+              setFilteredData(filteredList);
+              if (filteredList.length === 0) {
+                setShowNoRestaurantsError(true);
+              } else {
+                setShowNoRestaurantsError(false);
+              }
+            }}
+          >
+            Search
+          </button>
+        </div>
+      </div>
+      <h3 className="restaurants-title ml-4 text-xl">
+        Top restaurant chains in Bangalore
+      </h3>
       {showNoRestaurantsError ? <Error /> : ""}
-      <div className="restaurant-container">
+      <div className="restaurant-container flex flex-row flex-wrap mb-10">
         {filteredData?.map((restaurant) => (
           <Link
             key={restaurant?.info?.id}

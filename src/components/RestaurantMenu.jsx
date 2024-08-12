@@ -9,14 +9,20 @@ const RestaurantMenu = () => {
   const onlineStatus = useInternetStatus();
 
   if (onlineStatus === false)
-    return <div className="offline-msg">You are offline!</div>;
+    return (
+      <div className="offline-msg flex items-center justify-center text-gray-300 text-3xl h-[80vh]">
+        You are offline!
+      </div>
+    );
 
   if (apiData?.length === 0) return <Shimmer />;
 
   return topPicks ? (
     <>
-      <div className="menu-container">
-        <h2>{apiData?.data?.cards[0]?.card?.card?.text}</h2>
+      <div className="menu-container ml-4">
+        <h2 className="text-xl py-4">
+          {apiData?.data?.cards[0]?.card?.card?.text}
+        </h2>
         <h3>
           {
             apiData?.data?.cards[apiData.data.cards.length - 1]?.groupedCard
@@ -34,8 +40,10 @@ const RestaurantMenu = () => {
     </>
   ) : (
     <>
-      <div className="menu-container">
-        <h2>{apiData?.data?.cards[0]?.card?.card?.text}</h2>
+      <div className="menu-container ml-4">
+        <h2 className="text-xl py-4">
+          {apiData?.data?.cards[0]?.card?.card?.text}
+        </h2>
         <h3>
           {
             apiData?.data?.cards[apiData.data.cards.length - 1]?.groupedCard

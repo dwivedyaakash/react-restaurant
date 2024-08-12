@@ -6,9 +6,12 @@ const RestaurantCard = (props) => {
     props.restaurant.info;
 
   return (
-    <div className="restaurant-card">
-      <img className="restaurant-img" src={IMG_URL + cloudinaryImageId} />
-      <p className="restaurant-name">{name}</p>
+    <div className="restaurant-card ml-4 mt-4 bg-black hover:bg-slate-900 p-4 w-[250px] rounded-lg">
+      <img
+        className="restaurant-img rounded-lg"
+        src={IMG_URL + cloudinaryImageId}
+      />
+      <p className="restaurant-name py-3 text-lg">{name}</p>
       <p className="restaurant-name">{areaName}</p>
       <p className="restaurant-name">{costForTwo}</p>
       <p className="restaurant-name">{cuisines.join(", ")}</p>
