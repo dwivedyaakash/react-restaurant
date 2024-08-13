@@ -1,9 +1,12 @@
 import { LOGO_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import useInternetStatus from "../utils/useInternetStatus";
+import { useContext } from "react";
+import UserContext from "./UserContext";
 
 const Header = () => {
   const onlineStatus = useInternetStatus();
+  const { loggedInUser } = useContext(UserContext);
 
   return (
     <div className="header bg-gray-700 mb-4 flex justify-between p-4">
@@ -25,7 +28,7 @@ const Header = () => {
             <Link to="/">Offers</Link>
           </li>
           <li className="nav-item px-4 text-blue-300 hover:text-blue-500">
-            <Link to="/">Cart</Link>
+            <Link to="/about">{loggedInUser}</Link>
           </li>
           <li className="nav-item px-4 text-blue-300 hover:text-blue-500">
             <Link to="/">Sign in</Link>
