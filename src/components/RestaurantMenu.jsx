@@ -2,10 +2,11 @@ import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import useInternetStatus from "../utils/useInternetStatus";
+import RestaurantCategory from "./RestaurantCategory";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-  const { apiData, topPicks } = useRestaurantMenu(resId);
+  const apiData = useRestaurantMenu(resId);
   const onlineStatus = useInternetStatus();
 
   if (onlineStatus === false)
@@ -17,50 +18,30 @@ const RestaurantMenu = () => {
 
   if (apiData?.length === 0) return <Shimmer />;
 
-  return topPicks ? (
+  const categories = apiData?.data?.cards[
+    apiData.data.cards.length - 1
+  ]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((card) =>
+    card.card?.card["@type"].includes("NestedItemCategory")
+  );
+
+  if (categories.length < 1)
+    return (
+      <div className="flex items-center justify-center text-gray-300 text-3xl h-[80vh]">
+        Data not found!
+      </div>
+    );
+
+  return (
     <>
       <div className="menu-container p-4">
         <h2 className="my-8 text-center text-gray-300 text-3xl">
           {apiData?.data?.cards[0]?.card?.card?.text}
         </h2>
-        <div className="rounded bg-black">
-          <h3>
-            {
-              apiData?.data?.cards[apiData.data.cards.length - 1]?.groupedCard
-                ?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.title
-            }
-          </h3>
-          <h3>
-            {apiData?.data?.cards[
-              apiData.data.cards.length - 1
-            ]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.carousel.map(
-              (item) => (
-                <li key={item?.dish?.info?.id}>{item?.title}</li>
-              )
-            )}
-          </h3>
+        <div>
+          {categories.map((category, index) => (
+            <RestaurantCategory key={index} category={category} />
+          ))}
         </div>
-      </div>
-    </>
-  ) : (
-    <>
-      <div className="menu-container ml-4">
-        <h2 className="text-xl py-4">
-          {apiData?.data?.cards[0]?.card?.card?.text}
-        </h2>
-        <h3>
-          {
-            apiData?.data?.cards[apiData.data.cards.length - 1]?.groupedCard
-              ?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.title
-          }
-        </h3>
-        {apiData?.data?.cards[
-          apiData.data.cards.length - 1
-        ]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards.map(
-          (item) => (
-            <li key={item?.card?.info?.id}>{item?.card?.info?.name}</li>
-          )
-        )}
       </div>
     </>
   );
