@@ -102,7 +102,7 @@ const Body = () => {
           </button>
         </div>
       </div>
-      <h3 className="restaurants-title ml-4 text-xl">
+      <h3 className="restaurants-title my-8 text-center text-gray-300 text-3xl">
         Top restaurant chains in Bangalore
       </h3>
       {showNoRestaurantsError ? <Error /> : ""}

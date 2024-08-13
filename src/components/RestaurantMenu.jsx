@@ -19,23 +19,27 @@ const RestaurantMenu = () => {
 
   return topPicks ? (
     <>
-      <div className="menu-container ml-4">
-        <h2 className="text-xl py-4">
+      <div className="menu-container p-4">
+        <h2 className="my-8 text-center text-gray-300 text-3xl">
           {apiData?.data?.cards[0]?.card?.card?.text}
         </h2>
-        <h3>
-          {
-            apiData?.data?.cards[apiData.data.cards.length - 1]?.groupedCard
-              ?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.title
-          }
-        </h3>
-        {apiData?.data?.cards[
-          apiData.data.cards.length - 1
-        ]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.carousel.map(
-          (item) => (
-            <li key={item?.dish?.info?.id}>{item?.title}</li>
-          )
-        )}
+        <div className="rounded bg-black">
+          <h3>
+            {
+              apiData?.data?.cards[apiData.data.cards.length - 1]?.groupedCard
+                ?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.title
+            }
+          </h3>
+          <h3>
+            {apiData?.data?.cards[
+              apiData.data.cards.length - 1
+            ]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.carousel.map(
+              (item) => (
+                <li key={item?.dish?.info?.id}>{item?.title}</li>
+              )
+            )}
+          </h3>
+        </div>
       </div>
     </>
   ) : (

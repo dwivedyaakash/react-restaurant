@@ -11,7 +11,7 @@ function About() {
     );
 
   return (
-    <div className="about-container ml-4 offline-msg flex items-center justify-center text-gray-300 text-3xl">
+    <div className="about-container offline-msg my-8 text-center text-gray-300 text-3xl">
       About Me
     </div>
   );
