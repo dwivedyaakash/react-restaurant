@@ -3,10 +3,15 @@ import { Link } from "react-router-dom";
 import useInternetStatus from "../utils/useInternetStatus";
 import { useContext } from "react";
 import UserContext from "./UserContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const onlineStatus = useInternetStatus();
   const { loggedInUser } = useContext(UserContext);
+
+  // subscribing to the store using a selector
+  const cartItems = useSelector((store) => store.cart.items);
+  console.log(cartItems);
 
   return (
     <div className="header bg-gray-700 mb-4 flex justify-between p-4">
@@ -25,7 +30,7 @@ const Header = () => {
             <Link to="/about">About</Link>
           </li>
           <li className="nav-item px-4 text-blue-300 hover:text-blue-500">
-            <Link to="/">Offers</Link>
+            <Link to="/cart">Cart ({cartItems.length} items)</Link>
           </li>
           <li className="nav-item px-4 text-blue-300 hover:text-blue-500">
             <Link to="/about">{loggedInUser}</Link>

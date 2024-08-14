@@ -8,6 +8,7 @@ import Body from "./components/Body";
 import Error from "./components/Error.jsx";
 import RestaurantMenu from "./components/RestaurantMenu.jsx";
 import Shimmer from "./components/Shimmer.jsx";
+import Cart from "./components/Cart.jsx";
 
 const About = lazy(() => import("./components/About"));
 
@@ -27,6 +28,10 @@ const appRouter = createBrowserRouter([
             <About />
           </Suspense>
         ),
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
       {
         path: "/restaurants/:resId",
