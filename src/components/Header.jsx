@@ -14,29 +14,23 @@ const Header = () => {
   console.log(cartItems);
 
   return (
-    <div className="header bg-gray-700 mb-4 flex justify-between p-4">
-      <Link to="/">
-        <img className="logo w-16" src={LOGO_URL} />
+    <div className='header bg-gray-700 mb-4 flex justify-between p-4'>
+      <Link to='/'>
+        <img className='logo w-16' src={LOGO_URL} />
       </Link>
-      <div className="nav-items content-center">
-        <ul className="flex justify-between ">
-          <li className="nav-item px-4">
-            Online status: {onlineStatus ? "🟢" : "🔴"}
+      <div className='nav-items content-center'>
+        <ul className='flex justify-between '>
+          <li className='nav-item px-4'>
+            Status: {onlineStatus ? "Online 🟢" : "Offline 🔴"}
           </li>
-          <li className="nav-item px-4 text-blue-300 hover:text-blue-500">
-            <Link to="/">Home</Link>
+          <li className='nav-item px-4 text-blue-300 hover:text-blue-500'>
+            <Link to='/'>Home</Link>
           </li>
-          <li className="nav-item px-4 text-blue-300 hover:text-blue-500">
-            <Link to="/about">About</Link>
+          <li className='nav-item px-4 text-blue-300 hover:text-blue-500'>
+            <Link to='/about'>{loggedInUser}</Link>
           </li>
-          <li className="nav-item px-4 text-blue-300 hover:text-blue-500">
-            <Link to="/cart">Cart ({cartItems.length} items)</Link>
-          </li>
-          <li className="nav-item px-4 text-blue-300 hover:text-blue-500">
-            <Link to="/about">{loggedInUser}</Link>
-          </li>
-          <li className="nav-item px-4 text-blue-300 hover:text-blue-500">
-            <Link to="/">Sign in</Link>
+          <li className='nav-item px-4 text-blue-300 hover:text-blue-500'>
+            <Link to='/cart'>Cart ({cartItems.length} items)</Link>
           </li>
         </ul>
       </div>
